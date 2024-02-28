@@ -8,6 +8,7 @@
 <body>
 <label for="urlInput">IFrame url:</label>
 <input type="text" id="urlInput" placeholder="Enter URL for iframe" value="https://web-push-70b46.web.app/">
+<br>
 <label>
   <input type="checkbox" id="passUserIdCheckbox" onchange="toggleUserIdInput()">
   Pass User ID
@@ -17,17 +18,23 @@
   <label for="userIdInput">User ID:</label>
   <input type="text" id="userIdInput">
 </div>
+  <br>
+<label>
+  <input type="checkbox" id="isNewWindow">
+  Open Iframe into new window
+</label>
 <br>
 
-<button onclick="openIframe()">Open Iframe</button>
+<button onclick="onButtonClick()">Open Iframe</button>
+<div id="iframeContainer"></div>
 
 <script>
-  function toggleUserIdInput() {
-    const userIdInputContainer = document.getElementById('userIdInputContainer');
-    userIdInputContainer.style.display = document.getElementById('passUserIdCheckbox').checked ? 'block' : 'none';
-  }
-  function openIframe() {
+  const width = 800;
+  const height = 600;
+
+  function getUrl () {
     let url = document.getElementById('urlInput').value.trim();
+    
 
     const passUserId = document.getElementById('passUserIdCheckbox').checked;
     let userId = '';
@@ -39,18 +46,46 @@
       url += '?userId=' + encodeURIComponent(userId);
     }
 
-    const width = 800;
-    const height = 600;
-
-
+    return url;
+  }
+  
+  function toggleUserIdInput() {
+    const userIdInputContainer = document.getElementById('userIdInputContainer');
+    userIdInputContainer.style.display = document.getElementById('passUserIdCheckbox').checked ? 'block' : 'none';
+  }
+  function openIframe() {
+      if (getUrl()) {
+        const iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.style.width = `${width}px`;
+        iframe.style.height = `${height}px`;
+        iframe.style.border = 'none';
+        document.getElementById('iframeContainer').innerHTML = '';
+        document.getElementById('iframeContainer').appendChild(iframe);
+      } else {
+        alert('Please enter a valid URL');
+      }
+    }
+  
+  function openIframeIntoNewWindow() {
     const windowFeatures = 'width=' + width + ',height=' + height;
     const iframeWindow = window.open('', '_blank', windowFeatures);
     if (iframeWindow) {
-      iframeWindow.document.write('<iframe src="' + url + '" style="width:100%;height:100%;border:none;"></iframe>');
+      iframeWindow.document.write('<iframe src="' + getUrl() + '" style="width:100%;height:100%;border:none;"></iframe>');
     } else {
       alert('Your browser is blocking popups. Please enable popups for this site.');
     }
   }
+  function onButtonClick () {
+    const isNewWindow = document.getElementById('isNewWindow').checked;
+
+    if (isNewWindow) {
+      openIframeIntoNewWindow();
+    } else {
+      openIframe();
+    }
+  }
+    
 </script>
 </body>
 </html>
