@@ -53,19 +53,15 @@
     const userIdInputContainer = document.getElementById('userIdInputContainer');
     userIdInputContainer.style.display = document.getElementById('passUserIdCheckbox').checked ? 'block' : 'none';
   }
-  function openIframe() {
-      if (getUrl()) {
-        const iframe = document.createElement('iframe');
-        iframe.src = url;
-        iframe.style.width = `${width}px`;
-        iframe.style.height = `${height}px`;
-        iframe.style.border = 'none';
-        document.getElementById('iframeContainer').innerHTML = '';
-        document.getElementById('iframeContainer').appendChild(iframe);
-      } else {
-        alert('Please enter a valid URL');
-      }
-    }
+  function openIframe() { 
+    const iframe = document.createElement('iframe');
+    iframe.src = getUrl();
+    iframe.style.width = `${width}px`;
+    iframe.style.height = `${height}px`;
+    iframe.style.border = 'none';
+    document.getElementById('iframeContainer').innerHTML = '';
+    document.getElementById('iframeContainer').appendChild(iframe);
+  }
   
   function openIframeIntoNewWindow() {
     const windowFeatures = 'width=' + width + ',height=' + height;
