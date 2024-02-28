@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Iframe</title>
+</head>
+<body>
+<input type="text" id="urlInput" placeholder="Enter URL for iframe" value="https://web-push-70b46.web.app/">
+<label>
+  <input type="checkbox" id="passUserIdCheckbox" onchange="toggleUserIdInput()">
+  Pass User ID
+</label>
+<br>
+<div id="userIdInputContainer" style="display: none;">
+  <label for="userIdInput">User ID:</label>
+  <input type="text" id="userIdInput">
+</div>
+<br>
+
+<button onclick="openIframe()">Open Iframe</button>
+
+<script>
+  function toggleUserIdInput() {
+    const userIdInputContainer = document.getElementById('userIdInputContainer');
+    userIdInputContainer.style.display = document.getElementById('passUserIdCheckbox').checked ? 'block' : 'none';
+  }
+  function openIframe() {
+    let url = document.getElementById('urlInput').value.trim();
+
+    const passUserId = document.getElementById('passUserIdCheckbox').checked;
+    let userId = '';
+    if (passUserId) {
+      userId = document.getElementById('userIdInput').value;
+    }
+
+    if (userId) {
+      url += '?userId=' + encodeURIComponent(userId);
+    }
+
+    const width = 800;
+    const height = 600;
+
+
+    const windowFeatures = 'width=' + width + ',height=' + height;
+    const iframeWindow = window.open('', '_blank', windowFeatures);
+    if (iframeWindow) {
+      iframeWindow.document.write('<iframe src="' + url + '" style="width:100%;height:100%;border:none;"></iframe>');
+    } else {
+      alert('Your browser is blocking popups. Please enable popups for this site.');
+    }
+  }
+</script>
+</body>
+</html>
