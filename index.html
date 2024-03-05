@@ -21,7 +21,7 @@
   <br>
 <label>
   <input type="checkbox" id="isNewWindow">
-  Open Iframe into new window
+  Open new window
 </label>
 <br>
 
@@ -63,11 +63,11 @@
     document.getElementById('iframeContainer').appendChild(iframe);
   }
   
-  function openIframeIntoNewWindow() {
+  function openNewWindow() {
     const windowFeatures = 'width=' + width + ',height=' + height;
-    const iframeWindow = window.open('', '_blank', windowFeatures);
-    if (iframeWindow) {
-      iframeWindow.document.write('<iframe src="' + getUrl() + '" style="width:100%;height:100%;border:none;"></iframe>');
+    const openedWindow = window.open(getUrl(), 'новое окно', windowFeatures);
+    if (openedWindow) {
+      openedWindow.focus();
     } else {
       alert('Your browser is blocking popups. Please enable popups for this site.');
     }
@@ -76,7 +76,7 @@
     const isNewWindow = document.getElementById('isNewWindow').checked;
 
     if (isNewWindow) {
-      openIframeIntoNewWindow();
+      openNewWindow();
     } else {
       openIframe();
     }
