@@ -1,3 +1,5 @@
+console.log('[iframe loaded]')
+
 const parentWindowUrl = 'https://web-push-70b46.web.app/'
 
 const doFetch = () => {
