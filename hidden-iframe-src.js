@@ -10,7 +10,7 @@ const doFetch = () => {
       // Send the data received from the API back to the parent window
 
       console.log(`[iframe] response data: ${data}`)
-      event.source.postMessage(data, parentWindowUrl);
+      window.parent.postMessage(data, parentWindowUrl);
     })
     .catch(error => {
       console.error('Error fetching data:', error);
