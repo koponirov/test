@@ -8,7 +8,9 @@ const doFetch = () => {
     .then(response => response.json())
     .then(data => {
       // Send the data received from the API back to the parent window
-      event.source.postMessage(data, event.origin);
+
+      console.log(`[iframe] response data: ${data}`)
+      event.source.postMessage(data, parentWindowUrl);
     })
     .catch(error => {
       console.error('Error fetching data:', error);
