@@ -16,7 +16,6 @@ const doFetch = () => {
       console.error('Error fetching data:', error);
     });
 }
-  
 
 // Function to handle receiving messages from the parent window
 function handleMessage(event) {
@@ -31,10 +30,12 @@ function handleMessage(event) {
   console.log('Received message from parent:', event.data);
   // Do something with the message, such as sending a fetch request
   doFetch()
-  
+
 }
 
 // Add event listener to listen for messages from the parent window
 window.addEventListener('message', handleMessage);
 
 doFetch()
+
+//end
